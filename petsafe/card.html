@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#dc2626">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Emergency Pet Info - PetSafe</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f3f4f6;
+      color: #1f2937;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: white;
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    @media (min-width: 520px) {
+      body {
+        padding: 20px;
+      }
+      .container {
+        min-height: auto;
+        border-radius: 16px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+    }
+
+    .header {
+      background: linear-gradient(135deg, #dc2626 0%, #ea580c 100%);
+      color: white;
+      padding: 16px 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .loading, .error-container {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .loading-spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid #e5e7eb;
+      border-top-color: #dc2626;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .error-emoji {
+      font-size: 64px;
+      margin-bottom: 20px;
+    }
+
+    .error-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 12px;
+    }
+
+    .error-message {
+      font-size: 16px;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    .pet-info {
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .pet-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      margin-bottom: 16px;
+    }
+
+    .pet-photo-placeholder {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      margin: 0 auto 16px;
+      border: 4px solid white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .pet-name {
+      font-size: 28px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 8px;
+    }
+
+    .pet-details {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .pet-detail {
+      background: #f3f4f6;
+      padding: 4px 12px;
+      border-radius: 16px;
+      font-size: 14px;
+      color: #4b5563;
+    }
+
+    .pet-features {
+      font-size: 14px;
+      color: #6b7280;
+      margin-top: 8px;
+    }
+
+    section {
+      padding: 16px 20px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    section h2 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 12px;
+    }
+
+    .medical-alerts {
+      background: #fef2f2;
+    }
+
+    .medical-alerts h2 {
+      color: #dc2626;
+    }
+
+    .alert-group {
+      margin-bottom: 16px;
+    }
+
+    .alert-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .alert-group h3 {
+      font-size: 12px;
+      font-weight: 600;
+      color: #991b1b;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .alert-item {
+      background: white;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      border-left: 4px solid #dc2626;
+    }
+
+    .alert-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .alert-item strong {
+      display: block;
+      color: #111827;
+    }
+
+    .severity {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-top: 4px;
+    }
+
+    .severity.lifeThreatening {
+      background: #dc2626;
+      color: white;
+    }
+
+    .severity.severe {
+      background: #f97316;
+      color: white;
+    }
+
+    .reaction, .treatment, .notes, .dosage, .instructions {
+      font-size: 13px;
+      color: #4b5563;
+      margin-top: 4px;
+    }
+
+    .other-allergies .allergy-item {
+      display: inline-block;
+      background: #fef3c7;
+      padding: 4px 12px;
+      border-radius: 16px;
+      margin: 4px 4px 4px 0;
+      font-size: 14px;
+    }
+
+    .allergy-item .type {
+      color: #92400e;
+      font-size: 12px;
+    }
+
+    .contact-card {
+      background: #f9fafb;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    .contact-card:last-child {
+      margin-bottom: 0;
+    }
+
+    .contact-card.owner, .contact-card.coOwner {
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+    }
+
+    .contact-card.veterinarian, .contact-card.emergencyVet {
+      background: #f0fdf4;
+      border-left: 4px solid #22c55e;
+    }
+
+    .contact-card.emergencyVet {
+      background: #fef2f2;
+      border-left: 4px solid #dc2626;
+    }
+
+    .contact-type {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+
+    .contact-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .contact-relationship {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    .contact-phone, .contact-phone-alt, .contact-phone-after {
+      display: block;
+      font-size: 20px;
+      font-weight: 600;
+      color: #2563eb;
+      text-decoration: none;
+      margin-top: 8px;
+      padding: 12px 16px;
+      background: white;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .contact-phone:active {
+      background: #eff6ff;
+    }
+
+    .contact-phone-alt, .contact-phone-after {
+      font-size: 16px;
+      margin-top: 4px;
+    }
+
+    .contact-hours {
+      font-size: 13px;
+      color: #6b7280;
+      margin-top: 8px;
+    }
+
+    .contact-address {
+      display: block;
+      font-size: 14px;
+      color: #2563eb;
+      text-decoration: none;
+      margin-top: 8px;
+    }
+
+    .can-authorize {
+      font-size: 12px;
+      color: #16a34a;
+      font-weight: 500;
+      margin-top: 8px;
+    }
+
+    .identification .id-item {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 8px 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .identification .id-item:last-child {
+      border-bottom: none;
+    }
+
+    .id-label {
+      font-weight: 500;
+      color: #6b7280;
+    }
+
+    .id-value {
+      font-family: ui-monospace, monospace;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .id-company {
+      color: #9ca3af;
+    }
+
+    .custom-message {
+      background: #fefce8;
+    }
+
+    .custom-message p {
+      font-style: italic;
+      color: #713f12;
+    }
+
+    .footer {
+      padding: 20px;
+      text-align: center;
+      color: #9ca3af;
+      font-size: 12px;
+    }
+
+    .footer .card-id {
+      font-family: ui-monospace, monospace;
+      margin-bottom: 8px;
+    }
+
+    .footer .branding {
+      color: #6b7280;
+    }
+
+    .footer .branding a {
+      color: #3b82f6;
+      text-decoration: none;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>🚨 Emergency Pet Info</h1>
+    </header>
+
+    <!-- Loading State -->
+    <div id="loading" class="loading">
+      <div class="loading-spinner"></div>
+      <p>Loading emergency card...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="error" class="error-container hidden">
+      <div class="error-emoji" id="error-emoji">🔍</div>
+      <h2 class="error-title" id="error-title">Card Not Found</h2>
+      <p class="error-message" id="error-message">We couldn't find this emergency card.</p>
+    </div>
+
+    <!-- Card Content (hidden until loaded) -->
+    <div id="card-content" class="hidden">
+      <section class="pet-info">
+        <div id="pet-photo-container"></div>
+        <div class="pet-name" id="pet-name"></div>
+        <div class="pet-details" id="pet-details"></div>
+        <div id="pet-features"></div>
+      </section>
+
+      <section id="medical-alerts-section" class="medical-alerts hidden">
+        <h2>⚠️ Medical Alerts</h2>
+        <div id="medical-alerts"></div>
+      </section>
+
+      <section id="other-allergies-section" class="other-allergies hidden">
+        <h2>Other Allergies</h2>
+        <div id="other-allergies"></div>
+      </section>
+
+      <section id="contacts-section" class="contacts hidden">
+        <h2>📞 Emergency Contacts</h2>
+        <div id="contacts"></div>
+      </section>
+
+      <section id="identification-section" class="identification hidden">
+        <h2>🏷️ Identification</h2>
+        <div id="identification"></div>
+      </section>
+
+      <section id="custom-message-section" class="custom-message hidden">
+        <p id="custom-message"></p>
+      </section>
+
+      <footer class="footer">
+        <div class="card-id" id="card-id"></div>
+        <div class="branding">Created with <a href="https://bridgerapps.com/petsafe">PetSafe</a></div>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // Configuration
+    const API_BASE = 'https://lsfqimpvbkpvjkagkrox.supabase.co/functions/v1/card';
+
+    // Get token from URL
+    function getToken() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('token');
+    }
+
+    // Escape HTML to prevent XSS
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Format phone number
+    function formatPhone(phone) {
+      if (!phone) return '';
+      const digits = phone.replace(/\D/g, '');
+      if (digits.length === 10) {
+        return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+      }
+      if (digits.length === 11 && digits[0] === '1') {
+        return `(${digits.slice(1, 4)}) ${digits.slice(4, 7)}-${digits.slice(7)}`;
+      }
+      return phone;
+    }
+
+    // Calculate age from date of birth
+    function calculateAge(dateOfBirth) {
+      if (!dateOfBirth) return '';
+      const dob = new Date(dateOfBirth);
+      const now = new Date();
+      const years = now.getFullYear() - dob.getFullYear();
+      const months = now.getMonth() - dob.getMonth();
+
+      if (years < 1) {
+        const totalMonths = years * 12 + months;
+        return totalMonths <= 0 ? '< 1 month' : `${totalMonths} month${totalMonths !== 1 ? 's' : ''}`;
+      }
+      if (years === 1 && months < 0) {
+        return `${12 + months} months`;
+      }
+      return `${years} year${years !== 1 ? 's' : ''} old`;
+    }
+
+    // Get species emoji
+    function getSpeciesEmoji(species) {
+      const emojis = {
+        dog: '🐕', cat: '🐈', bird: '🐦', rabbit: '🐰',
+        reptile: '🦎', fish: '🐠', horse: '🐴', other: '🐾'
+      };
+      return emojis[species?.toLowerCase()] || '🐾';
+    }
+
+    // Get severity color
+    function getSeverityColor(severity) {
+      const colors = {
+        mild: '#22c55e', moderate: '#eab308',
+        severe: '#f97316', lifeThreatening: '#ef4444'
+      };
+      return colors[severity] || '#6b7280';
+    }
+
+    // Get contact type display name
+    function getContactTypeDisplay(type) {
+      const names = {
+        owner: 'OWNER', coOwner: 'CO-OWNER', emergencyContact: 'EMERGENCY CONTACT',
+        veterinarian: 'VETERINARIAN', emergencyVet: '24-HOUR EMERGENCY VET',
+        specialist: 'SPECIALIST', pharmacy: 'PHARMACY', groomer: 'GROOMER',
+        walker: 'DOG WALKER', sitter: 'PET SITTER'
+      };
+      return names[type] || type?.toUpperCase() || '';
+    }
+
+    // Show error
+    function showError(code, message) {
+      document.getElementById('loading').classList.add('hidden');
+      document.getElementById('card-content').classList.add('hidden');
+      document.getElementById('error').classList.remove('hidden');
+
+      const emojis = {
+        'CARD_NOT_FOUND': '🔍', 'CARD_EXPIRED': '⏰',
+        'CARD_INACTIVE': '🚫', 'MISSING_TOKEN': '❓'
+      };
+      const titles = {
+        'CARD_NOT_FOUND': 'Card Not Found',
+        'CARD_EXPIRED': 'Card Expired',
+        'CARD_INACTIVE': 'Card Inactive',
+        'MISSING_TOKEN': 'Invalid Link',
+        'SERVER_ERROR': 'Server Error'
+      };
+      const messages = {
+        'CARD_NOT_FOUND': "We couldn't find this emergency card. It may have been deleted or the link is incorrect.",
+        'CARD_EXPIRED': 'This emergency card has expired. Contact the pet owner for an updated card.',
+        'CARD_INACTIVE': 'This emergency card has been deactivated by the owner.',
+        'MISSING_TOKEN': 'This link is missing the card information. Please check the link and try again.',
+        'SERVER_ERROR': 'Something went wrong. Please try again later.'
+      };
+
+      document.getElementById('error-emoji').textContent = emojis[code] || '⚠️';
+      document.getElementById('error-title').textContent = titles[code] || 'Error';
+      document.getElementById('error-message').textContent = messages[code] || message || 'An error occurred.';
+    }
+
+    // Render card
+    function renderCard(data) {
+      const { card, pet } = data;
+
+      // Update page title
+      document.title = `Emergency Pet Info - ${escapeHtml(pet.name)}`;
+
+      // Pet photo
+      const photoContainer = document.getElementById('pet-photo-container');
+      if (pet.photoData) {
+        photoContainer.innerHTML = `<img src="data:image/jpeg;base64,${pet.photoData}" alt="${escapeHtml(pet.name)}" class="pet-photo">`;
+      } else {
+        photoContainer.innerHTML = `<div class="pet-photo-placeholder">${getSpeciesEmoji(pet.species)}</div>`;
+      }
+
+      // Pet name
+      document.getElementById('pet-name').textContent = pet.name;
+
+      // Pet details
+      const details = [];
+      const species = pet.species ? pet.species.charAt(0).toUpperCase() + pet.species.slice(1) : '';
+      if (species) details.push(species);
+      if (pet.breed) details.push(pet.breed);
+
+      const gender = pet.gender ? pet.gender.charAt(0).toUpperCase() + pet.gender.slice(1) : '';
+      if (gender) details.push(gender + (pet.isSpayedNeutered ? ' (Fixed)' : ''));
+
+      const age = calculateAge(pet.dateOfBirth);
+      if (age) details.push(age);
+
+      if (pet.weight) details.push(`${pet.weight} ${pet.weightUnit}`);
+
+      document.getElementById('pet-details').innerHTML = details
+        .map(d => `<span class="pet-detail">${escapeHtml(d)}</span>`)
+        .join('');
+
+      // Pet features
+      const features = [];
+      if (pet.colorMarkings) features.push(`<div class="pet-features">${escapeHtml(pet.colorMarkings)}</div>`);
+      if (pet.distinguishingFeatures) features.push(`<div class="pet-features">${escapeHtml(pet.distinguishingFeatures)}</div>`);
+      document.getElementById('pet-features').innerHTML = features.join('');
+
+      // Medical alerts
+      const severeAllergies = (pet.allergies || []).filter(a => a.severity === 'severe' || a.severity === 'lifeThreatening');
+      const otherAllergies = (pet.allergies || []).filter(a => a.severity !== 'severe' && a.severity !== 'lifeThreatening');
+      const conditions = pet.conditions || [];
+      const medications = pet.medications || [];
+
+      if (severeAllergies.length > 0 || conditions.length > 0 || medications.length > 0) {
+        document.getElementById('medical-alerts-section').classList.remove('hidden');
+
+        let alertsHtml = '';
+
+        if (severeAllergies.length > 0) {
+          alertsHtml += `<div class="alert-group"><h3>ALLERGIES</h3>`;
+          alertsHtml += severeAllergies.map(a => `
+            <div class="alert-item" style="border-left: 4px solid ${getSeverityColor(a.severity)}">
+              <strong>${escapeHtml(a.allergen)}</strong>
+              <span class="severity ${a.severity}">${a.severity === 'lifeThreatening' ? 'LIFE-THREATENING' : 'SEVERE'}</span>
+              ${a.reaction ? `<div class="reaction">Reaction: ${escapeHtml(a.reaction)}</div>` : ''}
+              ${a.treatment ? `<div class="treatment">Treatment: ${escapeHtml(a.treatment)}</div>` : ''}
+            </div>
+          `).join('');
+          alertsHtml += '</div>';
+        }
+
+        if (conditions.length > 0) {
+          alertsHtml += `<div class="alert-group"><h3>MEDICAL CONDITIONS</h3>`;
+          alertsHtml += conditions.map(c => `
+            <div class="alert-item" ${c.severity ? `style="border-left: 4px solid ${getSeverityColor(c.severity)}"` : ''}>
+              <strong>${escapeHtml(c.conditionName)}</strong>
+              ${c.treatmentNotes ? `<div class="notes">${escapeHtml(c.treatmentNotes)}</div>` : ''}
+            </div>
+          `).join('');
+          alertsHtml += '</div>';
+        }
+
+        if (medications.length > 0) {
+          alertsHtml += `<div class="alert-group"><h3>CURRENT MEDICATIONS</h3>`;
+          alertsHtml += medications.map(m => `
+            <div class="alert-item">
+              <strong>${escapeHtml(m.name)}</strong>
+              <div class="dosage">${escapeHtml(m.dosage)} - ${escapeHtml(m.frequency)}</div>
+              ${m.instructions ? `<div class="instructions">${escapeHtml(m.instructions)}</div>` : ''}
+            </div>
+          `).join('');
+          alertsHtml += '</div>';
+        }
+
+        document.getElementById('medical-alerts').innerHTML = alertsHtml;
+      }
+
+      // Other allergies
+      if (otherAllergies.length > 0) {
+        document.getElementById('other-allergies-section').classList.remove('hidden');
+        document.getElementById('other-allergies').innerHTML = otherAllergies
+          .map(a => `<div class="allergy-item"><span class="allergen">${escapeHtml(a.allergen)}</span> <span class="type">(${escapeHtml(a.allergyType)})</span></div>`)
+          .join('');
+      }
+
+      // Contacts
+      const contacts = (pet.contacts || []).sort((a, b) => a.priority - b.priority);
+      if (contacts.length > 0) {
+        document.getElementById('contacts-section').classList.remove('hidden');
+        document.getElementById('contacts').innerHTML = contacts.map(c => `
+          <div class="contact-card ${c.contactType}">
+            <div class="contact-type">${getContactTypeDisplay(c.contactType)}</div>
+            <div class="contact-name">${escapeHtml(c.name)}</div>
+            ${c.relationship ? `<div class="contact-relationship">${escapeHtml(c.relationship)}</div>` : ''}
+            <a href="tel:${escapeHtml(c.phone)}" class="contact-phone">${formatPhone(c.phone)}</a>
+            ${c.phoneAlt ? `<a href="tel:${escapeHtml(c.phoneAlt)}" class="contact-phone-alt">Alt: ${formatPhone(c.phoneAlt)}</a>` : ''}
+            ${c.afterHoursPhone ? `<a href="tel:${escapeHtml(c.afterHoursPhone)}" class="contact-phone-after">After Hours: ${formatPhone(c.afterHoursPhone)}</a>` : ''}
+            ${c.businessHours ? `<div class="contact-hours">${escapeHtml(c.businessHours)}</div>` : ''}
+            ${c.address && card.showOwnerAddress ? `<a href="maps://?q=${encodeURIComponent(c.address)}" class="contact-address">${escapeHtml(c.address)}</a>` : ''}
+            ${c.canAuthorizeEmergencyCare ? '<div class="can-authorize">✓ Can authorize emergency care</div>' : ''}
+          </div>
+        `).join('');
+      }
+
+      // Identification
+      if (pet.microchipNumber || pet.licenseNumber) {
+        document.getElementById('identification-section').classList.remove('hidden');
+        let idHtml = '';
+        if (pet.microchipNumber) {
+          idHtml += `<div class="id-item">
+            <span class="id-label">Microchip:</span>
+            <span class="id-value">${escapeHtml(pet.microchipNumber)}</span>
+            ${pet.microchipCompany ? `<span class="id-company">(${escapeHtml(pet.microchipCompany)})</span>` : ''}
+          </div>`;
+        }
+        if (pet.licenseNumber) {
+          idHtml += `<div class="id-item">
+            <span class="id-label">License:</span>
+            <span class="id-value">${escapeHtml(pet.licenseNumber)}</span>
+          </div>`;
+        }
+        document.getElementById('identification').innerHTML = idHtml;
+      }
+
+      // Custom message
+      if (card.customMessage) {
+        document.getElementById('custom-message-section').classList.remove('hidden');
+        document.getElementById('custom-message').textContent = card.customMessage;
+      }
+
+      // Card ID
+      document.getElementById('card-id').textContent = `Card ID: ${card.shareToken}`;
+
+      // Show content
+      document.getElementById('loading').classList.add('hidden');
+      document.getElementById('card-content').classList.remove('hidden');
+    }
+
+    // Main
+    async function loadCard() {
+      const token = getToken();
+
+      if (!token) {
+        showError('MISSING_TOKEN');
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_BASE}/${token}`);
+        const data = await response.json();
+
+        if (data.error) {
+          showError(data.code, data.message);
+          return;
+        }
+
+        renderCard(data);
+      } catch (err) {
+        console.error('Failed to load card:', err);
+        showError('SERVER_ERROR', 'Failed to load the emergency card.');
+      }
+    }
+
+    // Start loading when page loads
+    loadCard();
+  </script>
+</body>
+</html>
