@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10sCoach - Tennis Coaching Made Simple</title>
+    <meta name="description" content="10sCoach connects tennis coaches and players to streamline lesson logging, track player development, and improve communication. All data syncs securely via iCloud.">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            300: '#5eead4',
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-white text-gray-900">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-8">
+                    <a href="/" class="text-xl font-bold text-gray-900">
+                        Bridger<span class="text-brand-500">Apps</span>
+                    </a>
+                    <span class="hidden sm:inline text-gray-300">|</span>
+                    <img src="images/app-icon-64.png" alt="10sCoach" class="hidden sm:inline h-8 w-8 rounded-lg">
+                    <span class="hidden sm:inline font-semibold text-brand-600">10sCoach</span>
+                </div>
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-gray-600 hover:text-gray-900 transition">Features</a>
+                    <a href="#pricing" class="text-gray-600 hover:text-gray-900 transition">Pricing</a>
+                    <a href="#privacy" class="text-gray-600 hover:text-gray-900 transition">Privacy</a>
+                    <a href="#download" class="px-4 py-2 bg-brand-500 text-white font-medium rounded-lg hover:bg-brand-600 transition">Download</a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-600 hover:text-gray-900 transition" aria-label="Toggle menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden pt-4 pb-2">
+                <div class="flex flex-col space-y-4">
+                    <a href="#features" class="text-gray-600 hover:text-gray-900 transition">Features</a>
+                    <a href="#pricing" class="text-gray-600 hover:text-gray-900 transition">Pricing</a>
+                    <a href="#privacy" class="text-gray-600 hover:text-gray-900 transition">Privacy</a>
+                    <a href="#download" class="text-brand-600 font-medium hover:text-brand-700 transition">Download</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-6 bg-gradient-to-b from-brand-50 to-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="inline-flex items-center px-3 py-1 bg-brand-100 text-brand-700 text-sm font-medium rounded-full mb-6">
+                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        Privacy-First Design
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">
+                        Tennis coaching
+                        <span class="text-brand-500">made simple</span>
+                    </h1>
+                    <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                        The coaching notebook that both coach and player can see. Log lessons in under two minutes, track player development, and keep everyone on the same page—all synced securely via iCloud.
+                    </p>
+                    <div id="download" class="flex flex-col sm:flex-row gap-4">
+                        <a href="#" class="inline-flex items-center justify-center px-6 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition">
+                            <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                            </svg>
+                            Coming Soon on App Store
+                        </a>
+                    </div>
+                </div>
+                <div class="flex justify-center">
+                    <div class="relative">
+                        <div class="w-64 h-auto bg-gray-900 rounded-[3rem] p-2 shadow-2xl">
+                            <img src="images/home.png" alt="10sCoach Player Home showing lessons, skills, and next steps" class="w-full rounded-[2.5rem]">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Screenshots Section -->
+    <section class="py-20 px-6 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">See 10sCoach in action</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">A clean, intuitive interface designed for coaches and players alike.</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                <!-- Coach Today -->
+                <div class="text-center">
+                    <div class="bg-white rounded-2xl p-2 shadow-sm border border-gray-100 mb-3">
+                        <img src="images/today.png" alt="Coach Today View" class="w-full rounded-xl">
+                    </div>
+                    <p class="text-sm font-medium text-gray-700">Coach: Today</p>
+                    <p class="text-xs text-gray-500">Schedule & lesson management</p>
+                </div>
+
+                <!-- Player Home -->
+                <div class="text-center">
+                    <div class="bg-white rounded-2xl p-2 shadow-sm border border-gray-100 mb-3">
+                        <img src="images/home.png" alt="Player Home View" class="w-full rounded-xl">
+                    </div>
+                    <p class="text-sm font-medium text-gray-700">Player: Home</p>
+                    <p class="text-xs text-gray-500">Lessons, notes & next steps</p>
+                </div>
+
+                <!-- Player Progress -->
+                <div class="text-center">
+                    <div class="bg-white rounded-2xl p-2 shadow-sm border border-gray-100 mb-3">
+                        <img src="images/progress.png" alt="Skill Snapshot Radar Chart" class="w-full rounded-xl">
+                    </div>
+                    <p class="text-sm font-medium text-gray-700">Progress</p>
+                    <p class="text-xs text-gray-500">Skill snapshot & analytics</p>
+                </div>
+
+                <!-- Drill Library -->
+                <div class="text-center">
+                    <div class="bg-white rounded-2xl p-2 shadow-sm border border-gray-100 mb-3">
+                        <img src="images/drills.png" alt="Drill Library" class="w-full rounded-xl">
+                    </div>
+                    <p class="text-sm font-medium text-gray-700">Drill Library</p>
+                    <p class="text-xs text-gray-500">Browse & assign drills</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Everything you need to develop better players</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Powerful features designed by people who understand the coaching relationship.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1: Lesson Logging -->
+                <div class="p-6 rounded-2xl border border-gray-100 hover:border-brand-200 hover:bg-brand-50/50 transition">
+                    <div class="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Quick Lesson Logging</h3>
+                    <p class="text-gray-600">Log lessons in under two minutes. Rate skills across 11 tennis categories, add notes, attach photos and video, and set focus areas for next time.</p>
+                </div>
+
+                <!-- Feature 2: Player Progress -->
+                <div class="p-6 rounded-2xl border border-gray-100 hover:border-brand-200 hover:bg-brand-50/50 transition">
+                    <div class="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Player Progress Tracking</h3>
+                    <p class="text-gray-600">Visualize skill development with trend charts, radar diagrams, and activity heatmaps. Track NTRP, UTR, or WTN ratings over time.</p>
+                </div>
+
+                <!-- Feature 3: Drill Library -->
+                <div class="p-6 rounded-2xl border border-gray-100 hover:border-brand-200 hover:bg-brand-50/50 transition">
+                    <div class="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Drill Library</h3>
+                    <p class="text-gray-600">Choose from 50+ built-in drills organized by skill category, or create your own. Assign drills to players and track completion between lessons.</p>
+                </div>
+
+                <!-- Feature 4: Session Scheduling -->
+                <div class="p-6 rounded-2xl border border-gray-100 hover:border-brand-200 hover:bg-brand-50/50 transition">
+                    <div class="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Session Scheduling</h3>
+                    <p class="text-gray-600">Schedule one-off or recurring weekly lessons. Set reminders, manage cancellations, and optionally sync with your device calendar.</p>
+                </div>
+
+                <!-- Feature 5: In-App Messaging -->
+                <div class="p-6 rounded-2xl border border-gray-100 hover:border-brand-200 hover:bg-brand-50/50 transition">
+                    <div class="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">In-App Messaging</h3>
+                    <p class="text-gray-600">Communicate directly with players and parents. Send text, photos, and video clips with per-message visibility controls for junior players.</p>
+                </div>
+
+                <!-- Feature 6: Demo Video Library -->
+                <div class="p-6 rounded-2xl border border-gray-100 hover:border-brand-200 hover:bg-brand-50/50 transition">
+                    <div class="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Demo Video Library</h3>
+                    <p class="text-gray-600">Build a personal library of instructional videos. Record once, share with individual players or broadcast to your entire roster with timestamped feedback.</p>
+                </div>
+
+                <!-- Feature 7: Match & Practice Logging -->
+                <div class="p-6 rounded-2xl border border-gray-100 hover:border-brand-200 hover:bg-brand-50/50 transition">
+                    <div class="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Match & Practice Logging</h3>
+                    <p class="text-gray-600">Players log practice sessions and match results with set-by-set scores. Coaches see everything before the next lesson for a complete picture.</p>
+                </div>
+
+                <!-- Feature 8: Goal Setting -->
+                <div class="p-6 rounded-2xl border border-gray-100 hover:border-brand-200 hover:bg-brand-50/50 transition">
+                    <div class="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Goal Setting</h3>
+                    <p class="text-gray-600">Set development goals for each player with target dates and related skills. Track progress together and celebrate achievements along the way.</p>
+                </div>
+
+                <!-- Feature 9: iCloud Sync -->
+                <div class="p-6 rounded-2xl border border-gray-100 hover:border-brand-200 hover:bg-brand-50/50 transition">
+                    <div class="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center mb-4">
+                        <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold mb-2">Private iCloud Sync</h3>
+                    <p class="text-gray-600">Your data syncs automatically across all your devices via your personal iCloud account. Coaching data is shared securely between connected coaches and players.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 px-6 bg-gray-50">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Simple, transparent pricing</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Free for coaches. Affordable premium features for players who want deeper insights into their development.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Free Tier -->
+                <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8">
+                    <h3 class="text-2xl font-bold mb-2">Free</h3>
+                    <p class="text-gray-600 mb-6">Everything coaches need, plus core features for players and parents.</p>
+                    <p class="text-4xl font-bold text-gray-900 mb-6">$0</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-600">
+                            <svg class="w-5 h-5 text-brand-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            All coach features—always free
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <svg class="w-5 h-5 text-brand-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Full lesson history
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <svg class="w-5 h-5 text-brand-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Practice and match logging
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <svg class="w-5 h-5 text-brand-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Messaging and scheduling
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <svg class="w-5 h-5 text-brand-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Push notifications
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Premium Tier -->
+                <div class="bg-white rounded-3xl shadow-sm border border-brand-200 p-8 relative">
+                    <div class="inline-flex items-center px-3 py-1 bg-brand-100 text-brand-700 text-sm font-medium rounded-full mb-4">
+                        Founding Member Pricing
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">10sCoach Premium</h3>
+                    <p class="text-gray-600 mb-4">Unlock advanced analytics and the full drill library for deeper player development.</p>
+                    <p class="text-4xl font-bold text-gray-900 mb-1">$4.99<span class="text-lg font-normal text-gray-500">/year</span></p>
+                    <p class="text-sm text-gray-500 mb-6">Per player profile</p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center text-gray-600">
+                            <svg class="w-5 h-5 text-brand-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Skill trend charts and radar diagrams
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <svg class="w-5 h-5 text-brand-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Session and match analytics
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <svg class="w-5 h-5 text-brand-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Full drill library access
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <svg class="w-5 h-5 text-brand-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Goal creation and tracking
+                        </li>
+                        <li class="flex items-center text-gray-600">
+                            <svg class="w-5 h-5 text-brand-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            PDF progress report export
+                        </li>
+                    </ul>
+                    <a href="#" class="inline-flex items-center justify-center w-full px-6 py-3 bg-brand-500 text-white font-semibold rounded-xl hover:bg-brand-600 transition">
+                        Coming Soon
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy Section -->
+    <section id="privacy" class="py-20 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="order-2 md:order-1">
+                    <div class="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
+                        <div class="space-y-4">
+                            <div class="flex items-center p-4 bg-green-50 rounded-xl">
+                                <svg class="w-8 h-8 text-green-500 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                </svg>
+                                <div>
+                                    <p class="font-semibold text-green-800">Your Data Stays Yours</p>
+                                    <p class="text-sm text-green-600">Stored only on your devices & iCloud</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center p-4 bg-blue-50 rounded-xl">
+                                <svg class="w-8 h-8 text-blue-500 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                                </svg>
+                                <div>
+                                    <p class="font-semibold text-blue-800">Coach Notes Stay Private</p>
+                                    <p class="text-sm text-blue-600">Private notes are never shared with players</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center p-4 bg-purple-50 rounded-xl">
+                                <svg class="w-8 h-8 text-purple-500 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                </svg>
+                                <div>
+                                    <p class="font-semibold text-purple-800">Junior Player Protection</p>
+                                    <p class="text-sm text-purple-600">Per-message visibility controls for minors</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Your privacy is not negotiable</h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        We don't run servers. We don't collect analytics. We don't track you. 10sCoach stores everything in your personal iCloud account and uses Apple's CloudKit sharing to connect coaches and players directly.
+                    </p>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        That means your lesson history, player development data, and private coaching notes stay between the people they belong to. There's no Bridger Apps database in the middle—by design.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="/10scoach/privacy/" class="inline-flex items-center text-brand-600 font-medium hover:text-brand-700">
+                            Read Privacy Policy
+                            <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                        <a href="/10scoach/terms/" class="inline-flex items-center text-gray-600 font-medium hover:text-gray-700">
+                            Terms of Service
+                            <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-6 bg-brand-600">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Ready to elevate your coaching?</h2>
+            <p class="text-brand-100 mb-8 text-lg">Download 10sCoach and give your players the development experience they deserve.</p>
+            <a href="#" class="inline-flex items-center px-8 py-4 bg-white text-brand-600 font-semibold rounded-xl hover:bg-gray-100 transition shadow-lg">
+                <svg class="w-6 h-6 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                </svg>
+                Coming Soon on App Store
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 bg-gray-900 text-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <a href="/" class="text-xl font-bold">
+                        Bridger<span class="text-brand-400">Apps</span>
+                    </a>
+                    <p class="text-gray-400 mt-4 max-w-md">
+                        Thoughtfully crafted iOS applications with a focus on privacy and great user experience.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">10sCoach</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#features" class="hover:text-white transition">Features</a></li>
+                        <li><a href="#pricing" class="hover:text-white transition">Pricing</a></li>
+                        <li><a href="#download" class="hover:text-white transition">Download</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/10scoach/privacy/" class="hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="/10scoach/terms/" class="hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="mailto:hello@bridgerapps.com" class="hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row items-center justify-between">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">
+                    &copy; 2025 Bridger Apps. All rights reserved.
+                </p>
+                <p class="text-gray-500 text-sm">
+                    Made with care in the USA
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        menuBtn.addEventListener('click', () => {
+            const isOpen = !mobileMenu.classList.contains('hidden');
+            mobileMenu.classList.toggle('hidden');
+            menuIcon.setAttribute('d', isOpen
+                ? 'M4 6h16M4 12h16M4 18h16'
+                : 'M6 18L18 6M6 6l12 12'
+            );
+        });
+
+        // Close menu when clicking a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+            });
+        });
+    </script>
+</body>
+</html>
