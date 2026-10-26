@@ -30,13 +30,13 @@
 
         <article class="bg-white rounded-xl shadow-sm p-8 md:p-12">
             <h1 class="text-3xl font-bold text-gray-900 mb-2">Privacy Policy</h1>
-            <p class="text-gray-500 mb-8">Last updated: January 17, 2026</p>
+            <p class="text-gray-500 mb-8">Last updated: October 26, 2026</p>
 
             <!-- Summary Box -->
             <div class="bg-teal-50 border-l-4 border-teal-500 p-6 mb-8">
                 <h2 class="text-lg font-bold text-teal-800 mb-3">The Short Version</h2>
                 <p class="text-teal-800">
-                    <strong>Your data is yours.</strong> Jabbit stores all your health information locally on your device and syncs via your personal iCloud account. We never collect, store, transmit, or have access to your health data on our servers. We do not sell your data. We do not use your health data for advertising. Period.
+                    <strong>Your data is yours.</strong> Jabbit stores all your health information on your device. From version 1.0.4, Jabbit no longer syncs it through iCloud. We never collect, store, transmit, or have access to your health data on our servers. We do not sell your data. We do not use your health data for advertising. Period.
                 </p>
             </div>
 
@@ -66,7 +66,7 @@
                         <strong>Important Notice:</strong> The data you enter into Jabbit—including injection records, dosing information, peptide selections, and related health metrics—constitutes sensitive health data. Under the European Union's General Data Protection Regulation (GDPR), this qualifies as "special category" personal data under Article 9, which is afforded enhanced protections.
                     </p>
                     <p class="text-gray-800">
-                        Because of our privacy-first architecture, this sensitive data is stored only on your device and in your personal iCloud account. <strong>We never process, access, store, or transmit your health data on our servers.</strong>
+                        Because of our privacy-first architecture, this sensitive data is stored only on your device. (Versions before 1.0.4 could also sync it to your personal iCloud account; see section 4.2.) <strong>We never process, access, store, or transmit your health data on our servers.</strong>
                     </p>
                 </div>
             </section>
@@ -95,7 +95,7 @@
             <section class="mb-8">
                 <h2 class="text-xl font-semibold text-gray-900 mb-4">4. How Your Data Is Stored</h2>
                 <p class="text-gray-700 mb-4">
-                    All data you enter into Jabbit is stored in two places, both under your exclusive control:
+                    All data you enter into Jabbit is stored on your device, under your control:
                 </p>
                 
                 <h3 class="font-semibold text-gray-900 mt-4 mb-2">4.1 Local Device Storage</h3>
@@ -108,19 +108,17 @@
                     • Apple's Secure Enclave technology
                 </p>
 
-                <h3 class="font-semibold text-gray-900 mt-4 mb-2">4.2 Your Personal iCloud Account</h3>
+                <h3 class="font-semibold text-gray-900 mt-4 mb-2">4.2 iCloud (versions before 1.0.4)</h3>
                 <p class="text-gray-700 mb-4">
-                    If you have iCloud enabled for Jabbit, your data syncs to your personal iCloud account using Apple's CloudKit framework. This enables you to access your data across multiple Apple devices. Important points about iCloud sync:
+                    Versions of Jabbit before 1.0.4 could sync your data to your personal iCloud account using Apple's CloudKit framework, in your private CloudKit container. We never had access to it. From version 1.0.4, Jabbit no longer syncs through iCloud and no longer reads or writes that copy.
                 </p>
-                <p class="text-gray-700 mb-4 ml-4">
-                    • Data is stored in <strong>your private CloudKit container</strong>, accessible only through your Apple ID<br>
-                    • All data is encrypted end-to-end by Apple<br>
-                    • <strong>We do not have access to your iCloud data</strong><br>
-                    • Only you can access your data through your Apple ID credentials<br>
-                    • Apple's iCloud is subject to <a href="https://www.apple.com/legal/privacy/" class="text-teal-600 hover:text-teal-700" target="_blank">Apple's Privacy Policy</a>
+                <p class="text-gray-700 mb-4">
+                    A copy saved by an earlier version stays in your iCloud account until you delete it: Settings → [Your Name] → iCloud → Manage Storage → Jabbit. It is held by Apple and subject to <a href="https://www.apple.com/legal/privacy/" class="text-teal-600 hover:text-teal-700" target="_blank">Apple's Privacy Policy</a>.
                 </p>
+
+                <h3 class="font-semibold text-gray-900 mt-4 mb-2">4.3 Backups, New Devices and Export</h3>
                 <p class="text-gray-700">
-                    You can disable iCloud sync at any time in your device's Settings, in which case your data will remain only on the local device.
+                    Jabbit's records are included in your iPhone backups and move to a new iPhone with Quick Start or by restoring a backup. Deleting Jabbit deletes its records, so keep your iPhone backed up. <strong>Export My Data</strong> in the App's Settings saves your records as a file through the iOS share sheet; you choose where it goes, and Jabbit deletes its temporary copy when the share sheet closes. Progress photos are kept in your Photos library and are not included in the export.
                 </p>
             </section>
 
@@ -159,9 +157,9 @@
                     Jabbit uses the following third-party services:
                 </p>
 
-                <h3 class="font-semibold text-gray-900 mt-4 mb-2">6.1 Apple iCloud (CloudKit)</h3>
+                <h3 class="font-semibold text-gray-900 mt-4 mb-2">6.1 Apple iCloud (CloudKit), versions before 1.0.4 only</h3>
                 <p class="text-gray-700 mb-4">
-                    Used for syncing your data across your devices. Your data is stored in your private CloudKit container and is subject to <a href="https://www.apple.com/legal/privacy/" class="text-teal-600 hover:text-teal-700" target="_blank">Apple's Privacy Policy</a>.
+                    Versions before 1.0.4 used it to sync your data across your devices, in your private CloudKit container, subject to <a href="https://www.apple.com/legal/privacy/" class="text-teal-600 hover:text-teal-700" target="_blank">Apple's Privacy Policy</a>. Version 1.0.4 and later do not use it.
                 </p>
 
                 <h3 class="font-semibold text-gray-900 mt-4 mb-2">6.2 Apple StoreKit</h3>
@@ -182,13 +180,13 @@
             <section class="mb-8">
                 <h2 class="text-xl font-semibold text-gray-900 mb-4">7. Apple HealthKit Integration</h2>
                 <p class="text-gray-700 mb-4">
-                    Jabbit may optionally integrate with Apple HealthKit to read or write weight and body measurement data. If you enable this integration:
+                    Jabbit may optionally read your biological sex, date of birth, height, weight, body fat percentage and BMI from Apple HealthKit. Jabbit never writes to Apple Health. If you enable this integration:
                 </p>
                 <p class="text-gray-700 mb-4 ml-4">
                     • It requires your <strong>explicit permission</strong> through Apple's HealthKit authorization dialog<br>
                     • We only access the specific data types you authorize (e.g., weight)<br>
                     • HealthKit data is <strong>never transmitted to our servers or any third party</strong><br>
-                    • HealthKit data is used solely to display or sync information within the App<br>
+                    • HealthKit data is used solely to show your own progress within the App<br>
                     • You can revoke HealthKit permissions at any time in Settings → Health → Data Access & Devices → Jabbit
                 </p>
                 <p class="text-gray-700">
@@ -204,7 +202,6 @@
                 </p>
                 <p class="text-gray-700 mb-4 ml-4">
                     • <strong>Apple's device-level encryption</strong> — All data on your device is encrypted<br>
-                    • <strong>iCloud's end-to-end encryption</strong> — Synced data is encrypted in transit and at rest<br>
                     • <strong>Your device security</strong> — Protected by your passcode, Face ID, or Touch ID<br>
                     • <strong>No central database</strong> — Since we don't store your health data on our servers, there is no central database that could be breached
                 </p>
@@ -217,12 +214,12 @@
             <section class="mb-8">
                 <h2 class="text-xl font-semibold text-gray-900 mb-4">9. Data Retention and Deletion</h2>
                 <p class="text-gray-700 mb-4">
-                    Your data remains on your device and in your iCloud account until you choose to delete it. You have complete control over your data and can delete it at any time by:
+                    Your data remains on your device until you choose to delete it. You have complete control over your data and can delete it at any time by:
                 </p>
                 <p class="text-gray-700 mb-4 ml-4">
                     • <strong>Using the "Delete All Data" option</strong> in the App's Settings<br>
                     • <strong>Deleting the App</strong> from your device (local data will be removed)<br>
-                    • <strong>Removing Jabbit data from iCloud</strong> via Settings → [Your Name] → iCloud → Manage Storage → Jabbit
+                    • <strong>Removing any copy an earlier version saved to iCloud</strong> via Settings → [Your Name] → iCloud → Manage Storage → Jabbit
                 </p>
                 <p class="text-gray-700">
                     If you contact our support team, we retain your communication for up to two (2) years for reference purposes, after which it is deleted.
@@ -266,7 +263,7 @@
                         • Legal advice regarding its possession or use
                     </p>
                     <p class="text-gray-800">
-                        <strong>Data Handling:</strong> Any data you enter regarding research compounds is treated with the same privacy protections as all other data in Jabbit—stored only on your device and in your personal iCloud account. We never see, store, or transmit this information.
+                        <strong>Data Handling:</strong> Any data you enter regarding research compounds is treated with the same privacy protections as all other data in Jabbit—stored only on your device. We never see, store, or transmit this information.
                     </p>
                 </div>
             </section>
@@ -281,11 +278,11 @@
                     <strong>Your rights include:</strong>
                 </p>
                 <p class="text-gray-700 mb-4 ml-4">
-                    • <strong>Right of Access (Article 15)</strong> — You have the right to know what personal data we process about you. Since your health data is stored on your device/iCloud, you already have direct access.<br><br>
+                    • <strong>Right of Access (Article 15)</strong> — You have the right to know what personal data we process about you. Since your health data is stored on your device, you already have direct access.<br><br>
                     • <strong>Right to Rectification (Article 16)</strong> — You can correct any inaccurate data directly in the App.<br><br>
                     • <strong>Right to Erasure (Article 17)</strong> — You can delete your data at any time using the App's settings or by deleting the App.<br><br>
-                    • <strong>Right to Data Portability (Article 20)</strong> — You have the right to receive your data in a structured, commonly used format. Your data is already stored in your iCloud account under your control.<br><br>
-                    • <strong>Right to Restriction of Processing (Article 18)</strong> — You can disable iCloud sync or delete specific data categories within the App.<br><br>
+                    • <strong>Right to Data Portability (Article 20)</strong> — You have the right to receive your data in a structured, commonly used format. Use Export My Data in the App's Settings to save your records as a file.<br><br>
+                    • <strong>Right to Restriction of Processing (Article 18)</strong> — You can delete specific data categories within the App.<br><br>
                     • <strong>Right to Object (Article 21)</strong> — You may object to processing of your data for certain purposes.<br><br>
                     • <strong>Right to Withdraw Consent</strong> — Where processing is based on consent, you may withdraw consent at any time without affecting the lawfulness of prior processing.<br><br>
                     • <strong>Right to Lodge a Complaint</strong> — You have the right to lodge a complaint with a supervisory authority in your EU/EEA member state.
@@ -331,7 +328,7 @@
                     Bridger Apps is based in the United States. If you access the App from outside the United States, please be aware:
                 </p>
                 <p class="text-gray-700 mb-4 ml-4">
-                    • <strong>Your health data</strong> is stored on your local device and in your iCloud account. Apple's iCloud has data centers worldwide and processes data according to <a href="https://www.apple.com/legal/privacy/" class="text-teal-600 hover:text-teal-700" target="_blank">Apple's Privacy Policy</a> and applicable data transfer mechanisms.<br><br>
+                    • <strong>Your health data</strong> is stored on your local device and is not transferred to us. A copy that a version before 1.0.4 saved to iCloud is held by Apple according to <a href="https://www.apple.com/legal/privacy/" class="text-teal-600 hover:text-teal-700" target="_blank">Apple's Privacy Policy</a>.<br><br>
                     • <strong>Limited technical data</strong> (crash reports, purchase confirmations) may be processed in the United States.
                 </p>
                 <p class="text-gray-700 mb-4">
@@ -388,7 +385,7 @@
                     • <strong>Complaint</strong> — File a complaint with the Office of the Privacy Commissioner of Canada
                 </p>
                 <p class="text-gray-700 mb-4">
-                    Because Jabbit stores all health data locally on your device or in your private iCloud account, we do not collect or hold your personal health information on our servers. To exercise your rights regarding any data we may hold (such as support inquiries), contact us at <a href="mailto:privacy@bridgerapps.com" class="text-teal-600 hover:text-teal-700">privacy@bridgerapps.com</a>.
+                    Because Jabbit stores all health data locally on your device, we do not collect or hold your personal health information on our servers. To exercise your rights regarding any data we may hold (such as support inquiries), contact us at <a href="mailto:privacy@bridgerapps.com" class="text-teal-600 hover:text-teal-700">privacy@bridgerapps.com</a>.
                 </p>
 
                 <h3 class="text-lg font-medium text-gray-800 mt-4 mb-2">15.2 New Zealand (Privacy Act 2020)</h3>
@@ -501,7 +498,7 @@
                                 <td class="px-4 py-3 text-sm text-red-600 font-medium border-b">❌ NO</td>
                             </tr>
                             <tr>
-                                <td class="px-4 py-3 text-sm text-gray-700 border-b">Your data stays on your device and iCloud</td>
+                                <td class="px-4 py-3 text-sm text-gray-700 border-b">Your data stays on your device</td>
                                 <td class="px-4 py-3 text-sm text-green-600 font-medium border-b">✅ YES</td>
                             </tr>
                             <tr class="bg-gray-50">
