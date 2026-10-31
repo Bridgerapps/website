@@ -7,7 +7,7 @@ const [checkoutArg, stateArg, liveUrl] = process.argv.slice(2);
 if (!checkoutArg || !stateArg || !liveUrl) throw new Error('Usage: watch-deploy.mjs CHECKOUT STATE_FILE LIVE_URL');
 const cwd = resolve(checkoutArg), state = resolve(stateArg);
 function run(command, args, capture = false) {
-  return execFileSync(command, args, {cwd, encoding:'utf8', timeout:600000, stdio:capture ? ['ignore','pipe','pipe'] : 'inherit', env:{...process.env,CI:'true'}})?.trim();
+  return execFileSync(command, args, {cwd, encoding:'utf8', timeout:600000, stdio:capture ? ['ignore','pipe','pipe'] : 'inherit', env:{...process.env,CI:'true'}})?.trimEnd();
 }
 const dirty = run('git',['status','--porcelain','--untracked-files=no'],true).split('\n').filter(Boolean);
 // Jabbit's upstream repository contains both README.md and readme.md; macOS cannot represent both.
