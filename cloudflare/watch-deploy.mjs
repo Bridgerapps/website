@@ -9,6 +9,10 @@ const cwd = resolve(checkoutArg), state = resolve(stateArg);
 function run(command, args, capture = false) {
   return execFileSync(command, args, {cwd, encoding:'utf8', timeout:600000, stdio:capture ? ['ignore','pipe','pipe'] : 'inherit', env:{...process.env,CI:'true'}})?.trimEnd();
 }
+// Legacy Jabbit commits vendor node_modules. npm ci replaces them during publishing.
+// Restore only those generated dependencies in this dedicated checkout before inspection.
+const trackedDependencies = run('git',['ls-files','node_modules'],true);
+if (trackedDependencies) run('git',['restore','--','node_modules']);
 const dirty = run('git',['status','--porcelain','--untracked-files=no'],true).split('\n').filter(Boolean);
 // Jabbit's upstream repository contains both README.md and readme.md; macOS cannot represent both.
 if (dirty.some(line => line.slice(3) !== 'README.md')) throw new Error('Deployment checkout has local modifications; refusing to overwrite them');
@@ -17,11 +21,12 @@ const sha = run('git',['rev-parse','origin/main'],true);
 const previous = existsSync(state) ? JSON.parse(readFileSync(state,'utf8')) : {};
 if (previous.commit === sha) process.exit(0);
 run('git',['merge','--ff-only','origin/main']);
-run('npm',['ci','--no-audit','--no-fund']);
-// This historical generated file is tracked in Jabbit. Restore it after npm regenerates it.
-const trackedLock = run('git',['ls-files','node_modules/.package-lock.json'],true);
-if (trackedLock) run('git',['restore','--','node_modules/.package-lock.json']);
-run('npm',['run','deploy:cloudflare']);
+try {
+  run('npm',['ci','--no-audit','--no-fund']);
+  run('npm',['run','deploy:cloudflare']);
+} finally {
+  if (trackedDependencies) run('git',['restore','--','node_modules']);
+}
 const response = await fetch(liveUrl, {redirect:'follow',signal:AbortSignal.timeout(30000)});
 if (!response.ok || response.headers.get('server') !== 'cloudflare') throw new Error(`Post-deploy check failed: ${response.status}`);
 const published = Buffer.from(await response.arrayBuffer());
