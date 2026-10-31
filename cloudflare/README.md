@@ -27,3 +27,20 @@ or non-hosting records when adjusting hosting.
 Rollback: redeploy the previous Worker version using `wrangler rollback`, or
 restore the recorded hosting DNS to Vercel while the old project is retained.
 Do not cancel Vercel until all projects and dependencies have been verified.
+
+## Automatic publishing on the Mac mini
+
+A LaunchAgent on the company Mac mini checks `origin/main` every five minutes
+and deploys new commits from dedicated checkouts using the already-authorized
+Wrangler login. Its versioned implementation is `cloudflare/watch-deploy.mjs`.
+It never writes back to GitHub, refuses unexpected local modifications, uses
+the locked dependencies, and records success only after Cloudflare HTTPS
+responds. No credentials are placed in GitHub or on the bot server.
+
+Operational files are in `~/Projects/hosting-migration-2026-10-31/automation`;
+the agent label is `com.bridgerapps.cloudflare-hosting`. The Mac must remain
+powered on with this user logged in. A failed build is retried on the next run;
+inspect `automation/deploy.log` and each `*-state.json` for the last success.
+The source script accepts `CHECKOUT STATE_FILE LIVE_URL`. A cloud-native Git
+integration is an optional replacement, but needs a separate GitHub app/build
+token grant. Do not run both publishers concurrently.
