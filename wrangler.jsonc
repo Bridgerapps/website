@@ -1,0 +1,24 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "bridgerapps-website",
+  "account_id": "a829203d7d24484af6fcd3946b93712b",
+  "main": "cloudflare/worker.mjs",
+  "compatibility_date": "2026-10-30",
+  "workers_dev": true,
+  "assets": {
+    "directory": "dist",
+    "binding": "ASSETS",
+    "html_handling": "none",
+    "run_worker_first": true
+  },
+  "routes": [
+    {
+      "pattern": "bridgerapps.com/*",
+      "zone_id": "b9aba1d4c302dc7ee870d6de5ef41277"
+    },
+    {
+      "pattern": "www.bridgerapps.com/*",
+      "zone_id": "b9aba1d4c302dc7ee870d6de5ef41277"
+    }
+  ]
+}
