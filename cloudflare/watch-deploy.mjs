@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Run only against a dedicated deployment checkout, never a developer's working tree.
 import { execFileSync } from 'node:child_process';
-import { mkdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 const [checkoutArg, stateArg, liveUrl] = process.argv.slice(2);
 if (!checkoutArg || !stateArg || !liveUrl) throw new Error('Usage: watch-deploy.mjs CHECKOUT STATE_FILE LIVE_URL');
@@ -24,5 +24,7 @@ if (trackedLock) run('git',['restore','--','node_modules/.package-lock.json']);
 run('npm',['run','deploy:cloudflare']);
 const response = await fetch(liveUrl, {redirect:'follow',signal:AbortSignal.timeout(30000)});
 if (!response.ok || response.headers.get('server') !== 'cloudflare') throw new Error(`Post-deploy check failed: ${response.status}`);
+const published = Buffer.from(await response.arrayBuffer());
+if (!published.equals(readFileSync(resolve(cwd,'dist/index.html')))) throw new Error('Published homepage does not match this commit');
 writeFileSync(state,JSON.stringify({commit:sha,verifiedAt:new Date().toISOString(),url:liveUrl,status:response.status},null,2)+'\n',{mode:0o600});
 console.log(`Verified Cloudflare deployment ${sha}: ${liveUrl}`);
